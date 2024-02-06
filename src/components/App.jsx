@@ -1,30 +1,34 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import { Description } from './Description/Description.jsx'
-import { Options } from './Options/Options.jsx'
-import { Feedback } from './Feedback/Feedback.jsx'
-
+import { useState, useEffect } from 'react';
+import './App.css';
+import { Description } from './Description/Description.jsx';
+import { Options } from './Options/Options.jsx';
+import { Feedback } from './Feedback/Feedback.jsx';
 
 function App() {
-  const [reviews, setReviews] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0
-  })
+  const [reviews, setReviews] = useState(() => {
+    const savedReviews = window.localStorage.getItem('saved-reviews');
+
+    console.log(JSON.parse(savedReviews));
+
+    if (savedReviews === null) {
+      return { good: 0, neutral: 0, bad: 0 };
+    }
+    return JSON.parse(savedReviews);
+  });
 
   const handleClick = type => {
-    setReviews({ ...reviews, [type]: reviews[type] + 1 })
-  }
+    setReviews({ ...reviews, [type]: reviews[type] + 1 });
+  };
   const handleReset = () => {
-    setReviews({good: 0, neutral: 0, bad: 0})
-  }
-  
+    setReviews({ good: 0, neutral: 0, bad: 0 });
+  };
+
   useEffect(() => {
- window.localStorage.setItem("saved-reviews", reviews)
-  }, [reviews])
+    window.localStorage.setItem('saved-reviews', JSON.stringify({ reviews }));
+  }, [reviews]);
 
   const total = reviews.good + reviews.neutral + reviews.bad;
-  const percentage = Math.round(((reviews.good + reviews.neutral) / total) * 100)
+  const percentage = Math.round(((reviews.good + reviews.neutral) / total) * 100);
 
   return (
     <div>
@@ -32,7 +36,7 @@ function App() {
       <Options onUpdate={handleClick} onReset={handleReset} isHidden={total} />
       <Feedback reviews={reviews} total={total} percentage={percentage} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
