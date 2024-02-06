@@ -1,6 +1,6 @@
 
 export const Options = ({onUpdate, onReset, isHidden}) => {
-    console.log(isHidden);
+    // console.log(isHidden);
     return(
         <div>
             <button onClick={() => onUpdate("good")}>Good</button>
