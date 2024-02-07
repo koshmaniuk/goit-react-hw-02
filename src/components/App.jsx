@@ -5,22 +5,26 @@ import { Options } from './Options/Options.jsx';
 import { Feedback } from './Feedback/Feedback.jsx';
 
 function App() {
+  
+  
   const [reviews, setReviews] = useState(() => {
-    const savedReviews = window.localStorage.getItem('saved-reviews');
-    console.log(savedReviews);
-    // return { good: 0, neutral: 0, bad: 0 };
+    const reviewsFromLs = window.localStorage.getItem('saved-reviews')
+    if(reviewsFromLs !== null) {
+    return JSON.parse(reviewsFromLs);
+    } 
+    return {good:0, neutral: 0,bad: 0}
+})
 
-    console.log(JSON.parse(savedReviews));
 
-    if (savedReviews !== null) {
-      return JSON.parse(savedReviews);
-    }
-    return { good: 0, neutral: 0, bad: 0 };
-  });
+
+
+
+
 
   const handleClick = type => {
     setReviews({ ...reviews, [type]: reviews[type] + 1 });
   };
+
   const handleReset = () => {
     setReviews({ good: 0, neutral: 0, bad: 0 });
   };
