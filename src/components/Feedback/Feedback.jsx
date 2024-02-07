@@ -1,17 +1,15 @@
-export const Feedback = ({ reviews: { good, neutral, bad }, total, percentage }) => {
-    const totalFeedback = total;
-    const positiveFeedback = percentage;
-    if (totalFeedback !== 0) {
-        return (<div>
-            <p>Good: {good}</p>
-            <p>Neutral: {neutral}</p>
-            <p>Bad: {bad}</p>
-            <p>Total: {total} </p>
-            <p>Positive: {positiveFeedback}% </p>
+import css from './Feedback.module.css';
 
-        </div>
-        )
-    } return <p>No feedback yet</p>
-    
-        
-}
+export const Feedback = ({ reviews: { good, neutral, bad }, total, percentage }) => {
+  const positiveFeedback = percentage;
+
+  return (
+    <div className={css.container}>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
+      <p>Total: {total} </p>
+      <p>Positive: {positiveFeedback}% </p>
+    </div>
+  );
+};
