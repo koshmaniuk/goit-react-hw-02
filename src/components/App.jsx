@@ -7,13 +7,15 @@ import { Feedback } from './Feedback/Feedback.jsx';
 function App() {
   const [reviews, setReviews] = useState(() => {
     const savedReviews = window.localStorage.getItem('saved-reviews');
+    console.log(savedReviews);
+    // return { good: 0, neutral: 0, bad: 0 };
 
     console.log(JSON.parse(savedReviews));
 
-    if (savedReviews === null) {
-      return { good: 0, neutral: 0, bad: 0 };
+    if (savedReviews !== null) {
+      return JSON.parse(savedReviews);
     }
-    return JSON.parse(savedReviews);
+    return { good: 0, neutral: 0, bad: 0 };
   });
 
   const handleClick = type => {
